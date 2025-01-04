@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import Dict, List
 
 
 def filter_by_state(dict_with_state: List[Dict], state='EXECUTED') -> List[Dict]:
@@ -30,7 +30,3 @@ print(filter_by_state(data, 'CANCELED'))
 print(sort_by_date(data))
 # Вывод со сортировкой по возрастанию (сначала первые операции)
 print(sort_by_date(data, False))
-
-
-
-
