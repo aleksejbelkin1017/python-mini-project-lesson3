@@ -1,7 +1,7 @@
 from typing import Dict, List
 
 
-def filter_by_state(dict_with_state: List[Dict], state='EXECUTED') -> List[Dict]:
+def filter_by_state(dict_with_state: List[Dict], state: str = 'EXECUTED') -> List[Dict]:
     """Принимает список словарей и опционально значение для ключа state (по умолчанию 'EXECUTED').
     Функция возвращает новый список словарей, содержащий только те словари, у которых ключ state
     соответствует указанному значению"""
