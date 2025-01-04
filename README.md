@@ -4,7 +4,7 @@
 ## Установка:
 1. Клонируйте репозиторий:
 ```
-git clone https://github.com/username/project-x.git
+git clone https://github.com/aleksejbelkin1017/python-mini-project-lesson3.git
 ```
 2. Установите зависимости:
 ```
