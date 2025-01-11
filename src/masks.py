@@ -5,6 +5,7 @@ def get_mask_card_number(card_number: Union[int, str]) -> Union[str]:
     """Принимает на вход номер карты и возвращает её маску.
     Видны первые 6 цифр и последние 4 цифры. Остальные символы отображаются *.
     Номер разбит по блокам по 4 цифры."""
+
     # # преобразуем принятый номер карты к строке
     card_number = str(card_number)
     # # наносим маску на номер карты
@@ -36,5 +37,5 @@ def get_mask_account(account_number: Union[int, str]) -> Union[str]:
         return mask_number
 
 
-# print(get_mask_card_number(""))
-print(get_mask_account(12345678901234567891))
+# print(get_mask_card_number("1234567890123"))
+# print(get_mask_account(12345678901234567891))

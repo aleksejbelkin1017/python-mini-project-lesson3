@@ -4,6 +4,7 @@
 import pytest
 from src.masks import get_mask_card_number, get_mask_account
 
+
 @pytest.mark.parametrize(
     "card_number,expected_result", [
         (4111111111111111, "4111 11** **** 1111"),
@@ -44,8 +45,6 @@ def test_card_number_is_clear():
         ("SDcs568844sddac53256", "**3256"),
     ]
 )
-
-
 def test_get_mask_account_positive(account_number, expected_account_number):
     result = get_mask_account(account_number)
     assert result == expected_account_number

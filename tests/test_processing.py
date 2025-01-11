@@ -1,5 +1,3 @@
-import pytest
-
 # Модуль processing
 
 # filter_by_state:
