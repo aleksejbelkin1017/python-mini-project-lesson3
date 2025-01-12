@@ -3,23 +3,24 @@ from typing import Union
 from src.masks import get_mask_account, get_mask_card_number
 
 
-def mask_account_card(type_and_number: Union[str]) -> Union[str]:
+def mask_account_card(type_and_number: Union[str]) -> Union[str, None]:
     """Функция, которая маскирует номер счета или карты"""
-    type = type_and_number[: type_and_number.rfind(" ")]
+    type_new = type_and_number[: type_and_number.rfind(" ")]
     number = type_and_number[type_and_number.rfind(" ") + 1 :]
     if type_and_number == "":
         raise ValueError("Данные не введены")
     if not number.isdigit():
         raise ValueError("Номер должен состоять из цифр")
-    if "счет" in type.lower() or "счёт" in type.lower():
+    if "счет" in type_new.lower() or "счёт" in type_new.lower():
         if len(number) != 20:
             raise IndexError("Длина номера счёта должна быть 20 цифр")
         elif len(number) == 20:
-            return f"{type} {get_mask_account(number)}"
+            return f"{type_new} {get_mask_account(number)}"
     elif len(number) != 16:
         raise IndexError("Длина номера карты должна быть 16 цифр")
     elif len(number) == 16:
-        return f"{type} {get_mask_card_number(number)}"
+        return f"{type_new} {get_mask_card_number(number)}"
+    return None
 
 
 def get_date(user_date: str) -> str:
