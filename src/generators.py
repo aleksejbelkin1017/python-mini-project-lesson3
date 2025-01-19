@@ -1,9 +1,13 @@
 def filter_by_currency(transactions, currency):
     return (transaction for transaction in transactions if transaction['operationAmount']['currency']['name'] == currency)
 
+
+def transaction_descriptions(transactions):
+    return (transaction['description'] for transaction in transactions)
+
+
 # Пример входных данных
 # Для проверки функций filter_by_currency и transaction_descriptions:
-
 transactions = (
     [
         {
@@ -87,3 +91,13 @@ transactions = (
 usd_transactions = filter_by_currency(transactions, "руб.")
 for _ in range(2):
     print(next(usd_transactions))
+
+descriptions = transaction_descriptions(transactions)
+for _ in range(5):
+    print(next(descriptions))
+
+# >>> Перевод организации
+#     Перевод со счета на счет
+#     Перевод со счета на счет
+#     Перевод с карты на карту
+#     Перевод организации
