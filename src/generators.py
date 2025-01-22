@@ -8,7 +8,7 @@ def transaction_descriptions(transactions):
 
 def card_number_generator(start_number, end_number):
     for i in range(start_number, end_number + 1):
-        card_number = f"{i:012d}"  # Форматирование числа с ведущими нулями (до 12 знаков)
+        card_number = f"{i:016d}"  # Форматирование числа с ведущими нулями (до 12 знаков)
         yield f"{card_number[:4]} {card_number[4:8]} {card_number[8:12]} {card_number[12:]}"
 
 # Пример входных данных
@@ -108,9 +108,12 @@ transactions = (
 #     Перевод организации
 
 # Пример использования генератора card_number_generator
-start_number = 1234567898765432  # Начальное значение
-end_number = 9999999999999999  # Конечное значение
+# start_number = 1234567898765432  # Начальное значение
+# end_number = 9999999999999999  # Конечное значение
 
-card_gen = card_number_generator(start_number, end_number)
-print(next(card_gen))
-print(next(card_gen))
+# card_gen = card_number_generator(start_number, end_number)
+# print(next(card_gen))
+# print(next(card_gen))
+
+for card_number in card_number_generator(1, 5):
+    print(card_number)
