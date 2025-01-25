@@ -17,7 +17,8 @@ pip install -r requirements.txt
 3. Сортировка данных по дате.
 
 # Описание модулей и функций
-## Модуль masks.py
+## Каталог src
+### Модуль masks.py
 Модуль masks.py содержит функции get_mask_card_number и get_mask_account. 
 Эти функции предоставляют мощные инструменты для автоматизации обработки данных, 
 повышения их безопасности и удобства использования, что делает их полезными в различных 
@@ -42,7 +43,7 @@ masked_account = get_mask_account(account_number)
 print(masked_account)  # Выведет: **90
 ```
 
-##  Модуль widget.py
+###  Модуль widget.py
 Модуль widget.py содержит функции mask_account_card и get_date.
 Эти функции предоставляют удобные инструменты для обработки данных, 
 такие как маскирование номеров счетов и карт, а также преобразование дат 
@@ -65,7 +66,7 @@ formatted_date = get_date("2023-01-04T14:37:39.000")
 print(formatted_date) # Выведет: 04.01.2023
 ```
 
-## Модуль processing.py
+### Модуль processing.py
 Модуль processing.py содержит функции filter_by_state и sort_by_date.
 Эти функции предоставляют удобные инструменты для обработки данных, 
 такие как фильтрация словарей по состоянию и сортировка списка словарей по дате. 
@@ -101,4 +102,65 @@ dict_list = [
 sorted_list = sort_by_date(dict_list)
 print(sorted_list) # Выведет: [{"state": "CANCELED", "date": "2023-01-03"}, {"state": "EXECUTED", "date": "2023-01-02"}, {"state": "PROCESSING", "date": "2023-01-01"}]
 ```
-
+## Каталог tests
+Модули расположенные в каталоге tests хранят в себе тесты, фикстуры и параметризации для выполнения проверки функций из каталога src.  
+### Модуль test_masks.py
+Тесты расположеннные в модуле test_masks.py тестируют функции get_mask_card_number и get_mask_account из модуля masks.py
+### Тесты для функции get_mask_card_number
+#### test_card_number_positive_cases
+Тест проверяет работу функции при вводе корректных данных номера карты.
+#### test_card_number_wrong_len
+Тест проверяет вызов ошибки при вводе некорректной длины номера карты.
+#### test_card_number_is_not_digit():
+Тест проверяет вызов ошибки при вводе букв в значении номера карты.
+#### test_card_number_is_clear():
+Тест проверяет вызов ошибки при отсутствии номера карты.
+### Тесты для функции get_mask_account
+#### test_get_mask_account_positive
+Тест проверяет работу функции при вводе корректных данных номера счёта.
+#### test_get_mask_account_wrong_len_account_number
+Тест проверяет вызов ошибки при вводе некорректной длины номера счёта.
+#### test_get_mask_account_number_is_clear
+Тест проверяет вызов ошибки при отсутствии номера счёта.
+### Модуль test_widget.py
+Тесты расположенные в модуле test_widget.py тестируют функции mask_account_card и get_data из модуля widget.py
+### Тесты для функции mask_account_card
+#### test_mask_account_card_positive
+Тест проверяет работу маскировки номера карты или счёта при корректно введенных данных.
+#### test_mask_account_card_len_card_number_short
+Тест проверяет вызов ошибки при вводе номера карты меньше 16 символов.
+#### test_mask_account_card_len_card_number_long
+Тест проверяет вызов ошибки при вводе номера карты больше 16 символов.
+#### test_mask_account_card_len_bill_number_short
+Тест проверяет вызов ошибки при вводе номера счёта меньше 20 цифр.
+#### test_mask_account_card_len_bill_number_long
+Тест проверяет вызов ошибки при вводе номера счёта больше 20 цифр.
+#### test_mask_account_card_bill_isdigit
+Тест проверяет вызов ошибки при вводе в номере счёта символов отличных от цифр.
+#### test_mask_account_card_card_number_isdigit
+Тест проверяет вызов ошибки при вводе в номере карты символов отличных от цифр.
+#### test_mask_account_card_clear
+Тест проверяет вызов ошибки при вводе в номере карты пустого значения.
+### Тесты для функции get_data
+#### test_get_date_transformation
+Тест проверяет работу функции при вводе корректных значений.
+#### test_get_date_clear
+Тест проверяет работу функции при отсутствии значений.
+#### test_get_date_incorrect_separator
+Тест проверяет работу функции при вводе некорректного разделителя даты.
+### Модуль test_processing.py
+Тесты расположенные в модуле test_processing.py тестируют функции filter_by_state и sort_by_date из модуля processing.py
+### Тесты для функции filter_by_state
+#### test_filter_by_state_right_filtration
+Тест проверяет фильтрацию словарей с указанным статусом state в списке.
+#### test_filter_by_state_not_state
+Тест проверяет работу функции при вводе значения state, которое отсутствует в списке словарей.
+#### test_filter_by_state_clear_dictionary
+Тест проверяет работу функции при вводе пустого списка словарей.
+### Тесты для функции sort_by_date
+#### test_sort_by_date_sorted_up
+Тест проверяет сортировку по возрастанию.
+#### test_sort_by_date_sorted_down
+Тест проверяет сортировку по убыванию.
+### Модуль conftest.py
+Модуль conftest.py содержит фикстуры, которые используются в вышеуказанных тестах.
