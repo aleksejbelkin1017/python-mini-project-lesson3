@@ -1,16 +1,34 @@
 def filter_by_currency(transactions, currency):
-    return (transaction for transaction in transactions if transaction['operationAmount']['currency']['name'] == currency)
+    if transactions == None:
+        raise ValueError("Исходные данные не введены")
+    elif currency == None:
+        raise ValueError("Не выбрана валюта")
+    else:
+        return (transaction for transaction in transactions if transaction['operationAmount']['currency']['name'] == currency)
 
 
 def transaction_descriptions(transactions):
-    return (transaction['description'] for transaction in transactions)
+    if transactions is None or not transactions:
+        raise ValueError("Исходные данные не введены")
+
+    for transaction in transactions:
+        if 'description' in transaction:
+            yield transaction['description']
+        else:
+            raise KeyError("Отсутствует ключ description")
 
 
 def card_number_generator(start_number, end_number):
     for i in range(start_number, end_number + 1):
-        card_number = f"{i:016d}"  # Форматирование числа с ведущими нулями (до 12 знаков)
+        card_number = f"{i:016d}"  # Форматирование числа с ведущими нулями (до 16 знаков)
         yield f"{card_number[:4]} {card_number[4:8]} {card_number[8:12]} {card_number[12:]}"
 
+# try:
+#     print(list(transaction_descriptions(None)))
+# except ValueError as e:
+#     print(e)
+# except KeyError as e:
+#     print(e)
 # Пример входных данных
 # Для проверки функций filter_by_currency и transaction_descriptions:
 transactions = (
@@ -93,10 +111,6 @@ transactions = (
     ]
 )
 
-# usd_transactions = filter_by_currency(transactions, "руб.")
-# for _ in range(2):
-#     print(next(usd_transactions))
-#
 # descriptions = transaction_descriptions(transactions)
 # for _ in range(5):
 #     print(next(descriptions))
@@ -108,12 +122,12 @@ transactions = (
 #     Перевод организации
 
 # Пример использования генератора card_number_generator
-# start_number = 1234567898765432  # Начальное значение
-# end_number = 9999999999999999  # Конечное значение
+start_number = 1234567898765432  # Начальное значение
+end_number = 9999999999999999  # Конечное значение
 
-# card_gen = card_number_generator(start_number, end_number)
-# print(next(card_gen))
-# print(next(card_gen))
+card_gen = card_number_generator(start_number, end_number)
+print(next(card_gen))
+print(next(card_gen))
 
 for card_number in card_number_generator(1, 5):
     print(card_number)
