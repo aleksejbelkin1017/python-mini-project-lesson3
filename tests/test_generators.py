@@ -57,3 +57,27 @@ def test_transaction_descriptions_with_clear_transactions():
     with pytest.raises(ValueError) as exc_info:
         list(transaction_descriptions(None))
     assert str(exc_info.value) == "Исходные данные не введены"
+
+
+@pytest.mark.parametrize("start, end, expected_length",
+                         [(1000, 1010, 11),
+                          (5000, 5010, 11),
+                          (9000, 9010, 11)])
+def test_card_number_generator_range(start, end, expected_length):
+    """Тест на генерацию номеров карт в заданном диапазоне"""
+    card_numbers = list(card_number_generator(start, end))
+    assert len(card_numbers) == expected_length # количество карт в указанном диапазоне номеров
+    assert all(len(card_number) == 19 for card_number in card_numbers) # 16 цифр и 3 пробела между 4 блоками по 4 цифры
+
+
+@pytest.mark.parametrize("card_number_input, expected_format", [
+    (1234567890123456, "1234 5678 9012 3456"),
+    (1234567890123457, "1234 5678 9012 3457"),
+    (1234567890123458, "1234 5678 9012 3458"),
+    (1234567890123459, "1234 5678 9012 3459"),
+    (1234567890123460, "1234 5678 9012 3460")
+])
+def test_card_number_format(card_number_input, expected_format):
+    """Тест на формат номеров карт"""
+    generated_cards = list(card_number_generator(card_number_input, card_number_input))
+    assert all(generated_card == expected_format for generated_card in generated_cards)
