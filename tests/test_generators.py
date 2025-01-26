@@ -1,10 +1,11 @@
 import pytest
-from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
+
+from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 
 def test_filter_by_currency_with_correct_data(transactions_to_filter_by_currency_in,
-                            transactions_to_filter_by_currency_out_for_rub,
-                            transactions_to_filter_by_currency_out_for_usd):
+                                              transactions_to_filter_by_currency_out_for_rub,
+                                              transactions_to_filter_by_currency_out_for_usd):
     """Тест принимает корректные исходные данные и фильтрует по указанному заданному пользователем реквизиту currency.
     В тесте рассматриваются два варианта реквизита currency"""
     result_rub = filter_by_currency(transactions_to_filter_by_currency_in, "руб.")
@@ -45,7 +46,7 @@ def test_transaction_descriptions_with_correct_data(transactions_to_filter_by_cu
 
 
 def test_transaction_descriptions_without_any_description(
-    transactions_to_transaction_descriptions_without_any_description):
+        transactions_to_transaction_descriptions_without_any_description):
     """Тест проверяет вывод ошибки в случае отсутствия ключа description в транзакции"""
     with pytest.raises(KeyError) as exc_info:
         list(transaction_descriptions(transactions_to_transaction_descriptions_without_any_description))
@@ -66,8 +67,10 @@ def test_transaction_descriptions_with_clear_transactions():
 def test_card_number_generator_range(start, end, expected_length):
     """Тест на генерацию номеров карт в заданном диапазоне"""
     card_numbers = list(card_number_generator(start, end))
-    assert len(card_numbers) == expected_length # количество карт в указанном диапазоне номеров
-    assert all(len(card_number) == 19 for card_number in card_numbers) # 16 цифр и 3 пробела между 4 блоками по 4 цифры
+    # количество карт в указанном диапазоне номеров
+    assert len(card_numbers) == expected_length
+    # 16 цифр и 3 пробела между 4 блоками по 4 цифры
+    assert all(len(card_number) == 19 for card_number in card_numbers)
 
 
 @pytest.mark.parametrize("card_number_input, expected_format", [
