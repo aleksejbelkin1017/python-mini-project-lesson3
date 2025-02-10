@@ -6,7 +6,7 @@ from src.masks import get_mask_account, get_mask_card_number
 def mask_account_card(type_and_number: Union[str]) -> Union[str, None]:
     """Функция, которая маскирует номер счета или карты"""
     type_new = type_and_number[: type_and_number.rfind(" ")]
-    number = type_and_number[type_and_number.rfind(" ") + 1 :]
+    number = type_and_number[type_and_number.rfind(" ") + 1:]
     if type_and_number == "":
         raise ValueError("Данные не введены")
     if not number.isdigit():
