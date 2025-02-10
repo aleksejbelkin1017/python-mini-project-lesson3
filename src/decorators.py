@@ -21,16 +21,3 @@ def log(filename=None):
                 raise e
         return wrapper
     return decorator
-
-# Пример использования декоратора
-# @log(filename=None)
-# def my_function(x, y):
-#     return x + y
-#
-# my_function()
-
-# @log(filename="log.txt")
-# def my_func(x, y):
-#     return x + y
-#
-# my_func(1,)

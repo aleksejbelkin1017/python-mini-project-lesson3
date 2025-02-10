@@ -63,7 +63,7 @@ def test_log_with_temp_file_with_out_args(tmpdir):
         return x + y
 
     # Вызываем функцию без необходимых аргументов
-    with pytest.raises(TypeError) as exc_info:
+    with pytest.raises(TypeError):
         my_func()
 
     # Проверяем сообщение об ошибке в лог-файле
@@ -83,9 +83,10 @@ def test_log_with_temp_file_with_out_any_args(tmpdir):
         return x + y
 
     # Вызываем функцию без необходимых аргументов
-    with pytest.raises(TypeError) as exc_info:
+    with pytest.raises(TypeError):
         my_func(1,)
 
     # Проверяем сообщение об ошибке в лог-файле
-    error_message = "my_func error: test_log_with_temp_file_with_out_any_args.<locals>.my_func() missing 1 required positional argument: 'y'. Inputs: (1,), {}\n"
+    error_message = ("my_func error: test_log_with_temp_file_with_out_any_args.<locals>.my_func() "
+                     "missing 1 required positional argument: 'y'. Inputs: (1,), {}\n")
     assert temp_file.read() == error_message
