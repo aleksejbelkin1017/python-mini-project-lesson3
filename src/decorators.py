@@ -1,5 +1,6 @@
 # Декоратор log
 def log(filename=None):
+    """Декоратор для проверки работоспособности функции и вывода соответствующего сообщения"""
     def decorator(func):
         def wrapper(*args, **kwargs):
             try:
