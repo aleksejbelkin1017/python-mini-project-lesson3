@@ -1,6 +1,4 @@
-import json
 from unittest.mock import patch, mock_open
-import pytest
 from src.utils import transactions_list
 
 # Тестовый JSON-файл с валидным списком транзакций
