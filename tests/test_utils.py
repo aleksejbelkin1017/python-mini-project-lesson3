@@ -44,6 +44,7 @@ INVALID_JSON_DATA = '''
 # Пустой JSON-файл
 EMPTY_JSON_DATA = '[]'
 
+
 def test_transactions_list_valid_data():
     """
     Тест для валидного JSON-файла с списком транзакций.
@@ -54,6 +55,7 @@ def test_transactions_list_valid_data():
         assert len(result) == 1
         assert result[0]['id'] == 441945886
 
+
 def test_transactions_list_invalid_data():
     """
     Тест для JSON-файла, который содержит не список.
@@ -61,6 +63,7 @@ def test_transactions_list_invalid_data():
     with patch('builtins.open', mock_open(read_data=INVALID_JSON_DATA)):
         result = transactions_list('data/operations.json')
         assert result == []
+
 
 def test_transactions_list_empty_file():
     """
@@ -70,6 +73,7 @@ def test_transactions_list_empty_file():
         result = transactions_list('data/operations.json')
         assert result == []
 
+
 def test_transactions_list_file_not_found():
     """
     Тест для случая, когда файл не найден.
@@ -77,6 +81,7 @@ def test_transactions_list_file_not_found():
     with patch('builtins.open', side_effect=FileNotFoundError):
         result = transactions_list('data/operations.json')
         assert result == []
+
 
 def test_transactions_list_json_decode_error():
     """

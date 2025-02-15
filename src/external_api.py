@@ -4,6 +4,7 @@ import requests
 
 from src.utils import transactions_list
 
+
 def get_exchange_rate(currency, path):
     """
     Функция для получения текущего курса валют относительно RUB.
@@ -45,5 +46,5 @@ def get_exchange_rate(currency, path):
 
     return converted_amount
 
-if __name__ == '__main__':
-    print(get_exchange_rate("USD", "data/operations.json"))
+# if __name__ == '__main__':
+#     print(get_exchange_rate("USD", "data/operations.json"))

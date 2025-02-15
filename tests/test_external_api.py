@@ -1,5 +1,4 @@
-from unittest.mock import patch, mock_open, MagicMock
-import pytest
+from unittest.mock import patch, mock_open
 from src.external_api import get_exchange_rate
 import os
 from dotenv import load_dotenv
@@ -66,6 +65,7 @@ def test_get_exchange_rate_rub():
     with patch('builtins.open', mock_open(read_data=VALID_JSON_DATA)):
         result = get_exchange_rate("RUB", 'data/operations.json')
         assert result == [31957.58]
+
 
 def test_get_exchange_rate_usd(mock_api_response):
     """
