@@ -8,7 +8,6 @@ def get_exchange_rate(currency, path):
     """
     Функция для получения текущего курса валют относительно RUB.
     currency: строка с кодом валюты (например, 'USD' или 'EUR').
-    Возвращает текущий курс или None в случае ошибки.
     """
     load_dotenv('.env')
     api_key = os.getenv('API_KEY_exchangerate-api')
