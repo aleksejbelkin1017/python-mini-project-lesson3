@@ -1,4 +1,5 @@
 import pytest
+from unittest.mock import patch, MagicMock
 
 
 @pytest.fixture
@@ -270,3 +271,12 @@ def transactions_to_transaction_descriptions_without_any_description():
             }
         ]
     )
+
+
+@pytest.fixture
+def mock_api_response():
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {"conversion_result": 75.00}
+    with patch('requests.get', return_value=mock_response) as mock_get:
+        yield mock_get
