@@ -1,18 +1,27 @@
 import pandas as pd
+from typing import Optional
 
 
-def read_csv_transactions(file_path):
+def read_csv_transactions(file_path: str) -> Optional[pd.DataFrame]:
     """ Функция считывает финансовые операции из csv-файла """
-    df = pd.read_csv(file_path)
-    return df
+    try:
+        df = pd.read_csv(file_path)
+        return df
+    except FileNotFoundError:
+        print(f'Файл по пути "{file_path}" не найден')
+        return None
 
 
-def read_excel_transactions(file_path):
+def read_excel_transactions(file_path: str) -> Optional[pd.DataFrame]:
     """ Функция считывает финансовые операции из csv-файла """
-    df = pd.read_excel(file_path)
-    return df
+    try:
+        df = pd.read_excel(file_path)
+        return df
+    except FileNotFoundError:
+        print(f'Файл по пути "{file_path}" не найден')
+        return None
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # print(read_csv_transactions('data/transactions.csv'))
     # print(read_excel_transactions('data/transactions_excel.xlsx'))
