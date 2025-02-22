@@ -14,7 +14,7 @@ def read_csv_transactions(file_path: str) -> Optional[list[dict]]:
 
 
 def read_excel_transactions(file_path: str) -> Optional[list[dict]]:
-    """ Функция считывает финансовые операции из csv-файла """
+    """ Функция считывает финансовые операции из excel-файла """
     try:
         df = pd.read_excel(file_path)
         return df.to_dict('records')
