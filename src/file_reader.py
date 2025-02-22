@@ -1,22 +1,23 @@
-import pandas as pd
 from typing import Optional
 
+import pandas as pd
 
-def read_csv_transactions(file_path: str) -> Optional[pd.DataFrame]:
+
+def read_csv_transactions(file_path: str) -> Optional[list[dict]]:
     """ Функция считывает финансовые операции из csv-файла """
     try:
         df = pd.read_csv(file_path)
-        return df
+        return df.to_dict('records')
     except FileNotFoundError:
         print(f'Файл по пути "{file_path}" не найден')
         return None
 
 
-def read_excel_transactions(file_path: str) -> Optional[pd.DataFrame]:
+def read_excel_transactions(file_path: str) -> Optional[list[dict]]:
     """ Функция считывает финансовые операции из csv-файла """
     try:
         df = pd.read_excel(file_path)
-        return df
+        return df.to_dict('records')
     except FileNotFoundError:
         print(f'Файл по пути "{file_path}" не найден')
         return None

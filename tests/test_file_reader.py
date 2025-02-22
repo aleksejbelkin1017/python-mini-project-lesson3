@@ -1,5 +1,5 @@
 import pandas as pd
-from unittest.mock import patch, mock_open
+from unittest.mock import patch
 from src.file_reader import read_csv_transactions, read_excel_transactions
 
 
@@ -20,7 +20,8 @@ def test_read_csv_success(mock_read_csv):
 
     # Проверка результата
     assert mock_read_csv.called
-    pd.testing.assert_frame_equal(result, mock_df)
+    expected_result = mock_df.to_dict('records')
+    assert result == expected_result
 
 
 @patch('pandas.read_csv', side_effect=FileNotFoundError)
@@ -56,7 +57,8 @@ def test_read_excel_success(mock_read_excel):
 
     # Проверка результата
     assert mock_read_excel.called
-    pd.testing.assert_frame_equal(result, mock_df)
+    expected_result = mock_df.to_dict('records')
+    assert result == expected_result
 
 
 @patch('pandas.read_excel', side_effect=FileNotFoundError)
