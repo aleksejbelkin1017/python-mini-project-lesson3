@@ -159,6 +159,16 @@ print(sorted_list) # Выведет: [{"state": "CANCELED", "date": "2023-01-03"
 Функция для получения текущего курса валют относительно RUB. Получает на вход строка с кодом валюты (например, 'USD' или 'EUR') currency и ссылку на исходные данные в виде файла JSON. Внутри себя обрабатывает файл JSON посредством функции transactions_list.
 
 
+### Модуль file_reader
+Модуль file_reader содержит функции read_csv_transactions и read_excel_transactions.
+
+#### read_csv_transactions
+Функция считывает финансовые операции из csv-файла
+
+#### read_excel_transactions
+Функция считывает финансовые операции из excel-файла
+
+
 
 ## Каталог tests
 Модули расположенные в каталоге tests хранят в себе тесты, фикстуры и параметризации для выполнения проверки функций из каталога src.  
@@ -301,6 +311,21 @@ print(sorted_list) # Выведет: [{"state": "CANCELED", "date": "2023-01-03"
 Тест для валюты "RUB".
 #### test_get_exchange_rate_usd
 Тест для валюты "USD".
+
+
+### Модуль test_file_reader
+
+### Тесты для функции read_csv_file 
+#### test_read_csv_file_not_found
+Тест обработки ошибки FileNotFoundError при загрузке CSV-файла. Проверяет, что функция `read_csv_transactions` корректно обрабатывает исключение FileNotFoundError и возвращает None.
+#### test_read_csv_success 
+Тест успешной загрузки CSV-файла. Проверяет, что функция `read_csv_transactions` корректно вызывает `pd.read_csv` и возвращает ожидаемый DataFrame.
+
+### Тесты для функции read_excel_file
+#### test_read_excel_file_not_found 
+Тест обработки ошибки FileNotFoundError при загрузке Excel-файла. Проверяет, что функция `read_excel_transactions` корректно обрабатывает исключение FileNotFoundError и возвращает None.
+#### test_read_excel_success 
+Тест успешной загрузки Excel-файла. Проверяет, что функция `read_excel_transactions` корректно вызывает `pd.read_excel` и возвращает ожидаемый DataFrame.                
 
 
 ### Модуль conftest.py
