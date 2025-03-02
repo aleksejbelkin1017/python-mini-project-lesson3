@@ -24,5 +24,5 @@ def read_excel_transactions(file_path: str) -> Optional[list[dict]]:
 
 
 # if __name__ == '__main__':
-    # print(read_csv_transactions('data/transactions.csv'))
-    # print(read_excel_transactions('data/transactions_excel.xlsx'))
+#     print(read_csv_transactions('data/transactions.csv'))
+#     print(read_excel_transactions('data/transactions_excel.xlsx'))
