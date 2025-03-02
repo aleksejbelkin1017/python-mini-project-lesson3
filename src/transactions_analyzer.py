@@ -2,7 +2,7 @@ import re
 from collections import Counter
 
 
-def search_transactions(transactions, search_string):
+def search_transactions(transactions: list, search_string: str) -> list:
     """
     Функция для поиска транзакций по описанию
 
@@ -27,16 +27,17 @@ def search_transactions(transactions, search_string):
 
 
 # # Пример использования
-# transactions = [
+# data = [
 #     {"id": 1, "amount": 100, "description": "Оплата в магазине электроники"},
 #     {"id": 2, "amount": 200, "description": "Перевод другу"},
 #     {"id": 3, "amount": 50, "description": "Оплата за интернет"},
-#     {"id": 4, "amount": 300, "description": "Покупка в магазине электроники"}
+#     {"id": 4, "amount": 300, "description": "Покупка в магазине электроники"},
+#     {"id": 5, "amount": 150, "description": "Перевод коллеге"},
 # ]
 #
 # search_term = "электроники"
 #
-# found_transactions = search_transactions(transactions, search_term)
+# found_transactions = search_transactions(data, search_term)
 #
 # for transaction in found_transactions:
 #     print(transaction)

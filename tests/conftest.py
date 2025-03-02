@@ -280,3 +280,20 @@ def mock_api_response():
     mock_response.json.return_value = {"conversion_result": 75.00}
     with patch('requests.get', return_value=mock_response) as mock_get:
         yield mock_get
+
+
+@pytest.fixture
+def transactions():
+    """
+    Fixture для подготовки тестовых транзакций
+
+    Возвращает:
+    list: список словарей с тестовыми транзакциями
+    """
+    return [
+        {"id": 1, "amount": 100, "description": "Оплата в магазине электроники"},
+        {"id": 2, "amount": 200, "description": "Перевод другу"},
+        {"id": 3, "amount": 50, "description": "Оплата за интернет"},
+        {"id": 4, "amount": 300, "description": "Покупка в магазине электроники"},
+        {"id": 5, "amount": 150, "description": "Перевод коллеге"},
+    ]
