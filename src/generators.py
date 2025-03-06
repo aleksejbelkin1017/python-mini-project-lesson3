@@ -7,8 +7,13 @@ def filter_by_currency(transactions, currency):
     elif currency is None:
         raise ValueError("Не выбрана валюта")
     else:
-        return (transaction for transaction in transactions
-                if transaction['operationAmount']['currency']['name'] == currency)
+        return (
+            transaction for transaction in transactions
+            if (
+                ('operationAmount' in transaction and transaction['operationAmount']['currency']['code'] == currency) or
+                ('currency_name' in transaction and transaction['currency_code'] == currency)
+        )
+        )
 
 
 def transaction_descriptions(transactions):
