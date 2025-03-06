@@ -122,11 +122,21 @@ def main():
     # Задаём 3 вопрос и получаем на него ответ
     print(question3)
 
-    user_answer_3 = str(input('')).lower()
-    if user_answer_3 == 'да':
-        transactions_by_currency = list(filter_by_currency(transactions_by_date, 'RUB'))
-    elif user_answer_3 == 'нет':
-        transactions_by_currency = transactions_by_date
+    while True:
+        user_answer_3 = str(input('')).lower()
+        try:
+            if user_answer_3 == 'да':
+                transactions_by_currency = list(filter_by_currency(transactions_by_date, 'RUB'))
+                break
+            elif user_answer_3 == 'нет':
+                transactions_by_currency = transactions_by_date
+                break
+            else:
+                raise ValueError(f'Ответ должен быть "Да" или "Нет". Ваш ответ "{user_answer_3}"')
+        except ValueError:
+            print('Ошибка: Введите корректный ответ. '
+                  'Ответ должен быть "Да" или "Нет". '
+                  f'Ваш ответ "{user_answer_3}"')
 
     result = transactions_by_currency
 
