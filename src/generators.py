@@ -10,9 +10,10 @@ def filter_by_currency(transactions, currency):
         return (
             transaction for transaction in transactions
             if (
-                ('operationAmount' in transaction and transaction['operationAmount']['currency']['code'] == currency) or
+                ('operationAmount' in transaction and transaction['operationAmount']['currency']['code'] == currency)
+                or
                 ('currency_name' in transaction and transaction['currency_code'] == currency)
-        )
+            )
         )
 
 

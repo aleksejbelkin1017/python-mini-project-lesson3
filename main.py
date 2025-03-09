@@ -1,20 +1,21 @@
 import pandas as pd
-from src.processing import filter_by_state, sort_by_date
-from src.utils import transactions_list
+
 from src.file_reader import read_csv_transactions, read_excel_transactions
-from src.user_interaction import user_welcome_and_choice_transactions, user_choice_status_filter
 from src.generators import filter_by_currency
+from src.processing import filter_by_state, sort_by_date
 from src.transactions_analyzer import search_transactions
-from src.widget import mask_account_card, get_date
+from src.user_interaction import user_choice_status_filter, user_welcome_and_choice_transactions
+from src.utils import transactions_list
+from src.widget import get_date, mask_account_card
 
 
 def main():
     """ Функция отвечает за основную логику проекта
     и связывает функциональности между собой """
     files_base = {
-        'JSON-файл' : 'data/operations.json',
-        'CSV-файл' : 'data/transactions.csv',
-        'XLSX-файл' : 'data/transactions_excel.xlsx'
+        'JSON-файл': 'data/operations.json',
+        'CSV-файл': 'data/transactions.csv',
+        'XLSX-файл': 'data/transactions_excel.xlsx'
     }
     # Пользователь выбирает тип файла с исходными данными
     start = user_welcome_and_choice_transactions()

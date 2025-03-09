@@ -80,6 +80,7 @@ def user_choice_status_filter():
 
     return user_input
 
+
 if __name__ == '__main__':
     print(user_welcome_and_choice_transactions())
     print(user_choice_status_filter())

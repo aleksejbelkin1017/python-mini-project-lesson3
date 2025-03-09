@@ -1,6 +1,6 @@
 import pytest
 from src.transactions_analyzer import search_transactions, count_transaction_categories
-from collections import Counter
+
 
 def test_exact_match(transactions):
     """
