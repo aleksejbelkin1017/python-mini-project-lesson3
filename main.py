@@ -4,10 +4,13 @@ from src.utils import transactions_list
 from src.file_reader import read_csv_transactions, read_excel_transactions
 from src.user_interaction import user_welcome_and_choice_transactions, user_choice_status_filter
 from src.generators import filter_by_currency
-from tests.conftest import transactions_to_filter_by_currency_in
+from src.transactions_analyzer import search_transactions
+from src.widget import mask_account_card, get_date
 
 
 def main():
+    """ Функция отвечает за основную логику проекта
+    и связывает функциональности между собой """
     files_base = {
         'JSON-файл' : 'data/operations.json',
         'CSV-файл' : 'data/transactions.csv',
@@ -49,10 +52,10 @@ def main():
         return f"Файла {start} нет в базе."
 
     # Подготавливаем вопросы пользователю
-    question1 = 'Отсортировать операции по дате? Введите: Да / Нет'
-    question2 = 'Отсортировать по возрастанию или по убыванию? Введите: по возрастанию / по убыванию'
-    question3 = 'Выводить только рублевые транзакции? Введите: Да / Нет'
-    question4 = 'Отфильтровать список транзакций по определенному слову в описании? Введите: Да / Нет'
+    question1 = 'Отсортировать операции по дате? Введите: Да / Нет\n'
+    question2 = '\nОтсортировать по возрастанию или по убыванию? Введите: по возрастанию / по убыванию\n'
+    question3 = '\nВыводить только рублевые транзакции? Введите: Да / Нет\n'
+    question4 = '\nОтфильтровать список транзакций по определенному слову в описании? Введите: Да / Нет\n'
 
     # Подготавливаем списки возможных ответов на вопросы
     may_be_answer_1_3 = ['да', 'нет']
@@ -138,10 +141,88 @@ def main():
                   'Ответ должен быть "Да" или "Нет". '
                   f'Ваш ответ "{user_answer_3}"')
 
-    result = transactions_by_currency
+    # Задаём 4 вопрос и получаем на него ответ
+    print(question4)
 
-    return result
+    while True:
+        user_answer_4 = input('').strip().lower()
+        if user_answer_4 == 'нет':
+            transactions_by_word = transactions_by_currency
+            break
+        elif user_answer_4 == 'да':
+            user_answer_word = input('\nВведите слово: ').strip().lower()
+            transactions_by_word = search_transactions(transactions_by_currency, user_answer_word)
+            # Считаем количество транзакций
+            # count_transactions = count_transaction_categories(transactions_by_word, user_answer_word)
+            break
+        else:
+            print('Ошибка: Введите корректный ответ. Ответ должен быть "Да" или "Нет".')
+
+        # Считаем количество транзакций
+    count_transactions_by_word = len(transactions_by_word)
+
+    result_text_1 = ('\nРаспечатываю итоговый список транзакций.\n'
+                     f'Всего банковских операций в выборке {count_transactions_by_word}\n')
+    result_text_2 = ('Не найдено ни одной транзакции, подходящей под ваши условия фильтрации.\n')
+
+    # Определяем какое результирующее сообщение выводить
+    if count_transactions_by_word == 0:
+        print(result_text_2)
+    else:
+        print(result_text_1)
+
+    # Программа отрабатывает функцию по маскировке номеров счетов и карт
+    for transaction in transactions_by_word:
+
+        from_value = transaction.get('from', '')
+
+        if pd.isna(from_value) or not isinstance(from_value, str) or " " not in from_value:
+            # print(f"Некорректное значение 'from': {from_value}")
+            transaction['from'] = 'Неизвестно'
+        else:
+            transaction['from'] = mask_account_card(from_value)
+
+        to_value = transaction.get('to', '')
+
+        if pd.isna(to_value):
+            # print(f"Некорректное значение 'to': {to_value}")
+            transaction['to'] = 'Неизвестно'
+        elif isinstance(to_value, str):
+            transaction['to'] = mask_account_card(to_value)
+
+    # Программа преобразует формат даты транзакции
+    for transaction in transactions_by_word:
+        if 'date' in transaction:
+            transaction['date'] = get_date(transaction['date'])
+
+    # Подготавливаем входные данные для строки вывода
+    for transaction in transactions_by_word:
+        date = transaction['date']
+        description = transaction['description']
+        from_account = transaction.get('from', '')
+        to_account = transaction.get('to', '')
+
+        if 'operationAmount' in transaction:
+            amount = transaction['operationAmount'].get('amount', 'Неизвестно')
+            currency = transaction['operationAmount']['currency'].get('name', 'Неизвестно')
+        else:
+            amount = transaction.get('amount', 'Неизвестно')
+            currency = transaction.get('currency_name', 'Неизвестно')
+
+        # Форматируем строку вывода
+        output = f"{date} {description}\n"
+        if from_account != 'Неизвестно' and to_account:
+            output += f"{from_account} -> {to_account}\n"
+        elif from_account != 'Неизвестно':
+            output += f"{from_account}\n"
+        elif to_account:
+            output += f"{to_account}\n"
+        output += f"Сумма: {amount} {currency}\n"
+
+        print(output)
+
+    return
 
 
 if __name__ == '__main__':
-    print(main())
+    main()
