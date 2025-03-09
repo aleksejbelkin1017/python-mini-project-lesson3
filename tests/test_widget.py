@@ -21,28 +21,28 @@ def test_mask_account_card_positive(type_and_number, expected_positive_result_ty
 
 def test_mask_account_card_len_card_number_short():
     """Тест проверяет вызов ошибки при вводе номера карты меньше 16 символов"""
-    with pytest.raises(IndexError) as exc_info:
+    with pytest.raises(ValueError) as exc_info:
         mask_account_card("Visa Platinum 70007922")
     assert str(exc_info.value) == "Длина номера карты должна быть 16 цифр"
 
 
 def test_mask_account_card_len_card_number_long():
     """Тест проверяет вызов ошибки при вводе номера карты больше 16 символов"""
-    with pytest.raises(IndexError) as exc_info:
+    with pytest.raises(ValueError) as exc_info:
         mask_account_card("Visa Platinum 70007924564564654654646545643212")
     assert str(exc_info.value) == "Длина номера карты должна быть 16 цифр"
 
 
 def test_mask_account_card_len_bill_number_short():
     """Тест проверяет вызов ошибки при вводе номера счёта меньше 20 цифр"""
-    with pytest.raises(IndexError) as exc_info:
+    with pytest.raises(ValueError) as exc_info:
         mask_account_card("Счет 754")
     assert str(exc_info.value) == "Длина номера счёта должна быть 20 цифр"
 
 
 def test_mask_account_card_len_bill_number_long():
     """Тест проверяет вызов ошибки при вводе номера счёта больше 20 цифр"""
-    with pytest.raises(IndexError) as exc_info:
+    with pytest.raises(ValueError) as exc_info:
         mask_account_card("Счет 754")
     assert str(exc_info.value) == "Длина номера счёта должна быть 20 цифр"
 
@@ -65,7 +65,7 @@ def test_mask_account_card_clear():
     """Тест проверяет вызов ошибки при вводе в номере карты символов отличных от цифр"""
     with pytest.raises(ValueError) as exc_info:
         mask_account_card("")
-    assert str(exc_info.value) == "Данные не введены"
+    assert str(exc_info.value) == "Некорректный формат данных"
 
 
 # get_data:

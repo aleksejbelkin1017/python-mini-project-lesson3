@@ -20,10 +20,12 @@ def mask_account_card(type_and_number: Union[str]) -> Union[str, None]:
 
     if "счет" in type_new.lower() or "счёт" in type_new.lower():
         if len(number) != 20:
+            raise ValueError("Длина номера счёта должна быть 20 цифр")
             return f"{type_new} Неверная длина номера счёта"
         return f"{type_new} {get_mask_account(number)}"
     else:
         if len(number) != 16:
+            raise ValueError("Длина номера карты должна быть 16 цифр")
             return f"{type_new} Неверная длина номера карты"
         return f"{type_new} {get_mask_card_number(number)}"
 
